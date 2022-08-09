@@ -1,0 +1,184 @@
+数据持久化，UserDefault,CoreData(二选一，CoreData属于高级)
+https://openclassrooms.com/en/courses/4871481-faites-persister-vos-donnees-dans-votre-application-ios/5418114-prenez-en-main-core-data
+
+CoreData--------https://www.jianshu.com/p/22e6fc0c4947
+
+
+面向协议编程
+
+网络请求
+
+响应式，即布局，约束
+
+UserDefault
+https://www.hackingwithswift.com/read/12/2/reading-and-writing-basics-userdefaults
+---------------------------------------------------------------------
+toolbar切换游戏内容
+
+26个字母用Label显示
+
+被猜单词也用Label显示，富文本为内容
+
+textview显示0/6尝试次数
+
+用seguement切换单词还是电影的排列
+
+需要有一个按钮进行刷新，结束当前猜测，开始新的一局
+
+需要有一个得分算法，1次不错20分，第1次扣1分，第2次扣1分，第3次扣2分，第4次扣2分，第5次扣6分，第6次扣8分，错完就扣完。
+
+使用collectionView,排列26个字母的Label
+https://www.youtube.com/watch?v=sbKQnJZpQzo，如何使用collectionView，并进行设定（和Android的RecylerView 有点类似）
+https://www.youtube.com/watch?v=DkDxluOmr9U，讲解如何获得当前点击了哪个collectionView,的哪个Label
+
+当前分数，使用testView
+按钮Recommencer结束当前（无论是否猜购6次）
+按钮Terminer，结束整个游戏
+
+coredata保存数据
+model单元测试
+
+网络获得实时数据 func getWord()
+随机用*替换字母 func getNoticeWord()
+按钮Recommancer刷新当前页面
+按钮Terminer结束当前活动，并提示对话框输入名字
+
+//Todo 显示排行的页面StateViewController,使用segment切换排行，使用tableView显示
+//Todo 数据库访问方法
+//Todo SortDescription 排序
+
+---------label 可点击测试 ，验证有效，@IBAction不需要和UILabel关联---------
+class DetailViewController: UIViewController {
+
+    @IBOutlet weak var tripDetails: UILabel!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ...
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.tapFunction))
+        tripDetails.isUserInteractionEnabled = true
+        tripDetails.addGestureRecognizer(tap)
+    }
+
+    @IBAction func tapFunction(sender: UITapGestureRecognizer) {
+        print("tap working")
+    }
+}
+
+-------------------富文本，单个改变文本颜色------------
+var str = "";
+
+let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 60), NSAttributedString.Key.foregroundColor : UIColor.black]
+let  str1 = NSMutableAttributedString(string:"本文内容", attributes:attrs1)
+str.append(str1)
+//不断append str2，str3进行拼凑文本，每段都可以赋予不同的颜色和字大小
+
+用*号代替未出现的字母，暂定文字为60号字
+
+-----------------弹窗，用来输入用户名---------
+    func renameAlert() {
+        let cell: UITableViewCell = tableView.cellForRow(at: IndexPath(row: 0, section: 1))!
+        let alertController = UIAlertController(title: NSLocalizedString("vehicleRename", comment: ""),
+                        message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .default, handler: {
+            action in
+            print("点击了确定")
+            let textField: UITextField = (alertController.textFields?[0])!;
+            print(textField.text)
+            cell.detailTextLabel?.text = textField.text
+            //跳到定位设置
+        })
+        alertController.addTextField { (textfield) in
+            print("打印")
+            //这个block会在弹出对话框的时候调用,这个参数textfield就是系统为我们创建的textfield
+            textfield.delegate = self
+            print(textfield)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+ 
+//限制输入长度   
+extension settingVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if range.location >= 6 {
+            return false
+        }
+        return true
+    }
+    
+}
+
+
+
+
+---------单例使用-------
+class Singleton {
+    static var shared = Singleton()
+    private init() {}
+}
+
+------------网络请求-------------
+func getWord(){
+	let url = "";
+        let task = URLSession.Shared.dataTast(with:url){
+        data,response,error in
+        
+        //如果有错误
+            if let error = error{
+                //error.localizedDescription
+                //todo 对错误进行操作
+                print("1111111 \(error.localizedDescription)")
+                return
+            }
+            //如果没有有响应，并且响应返回码不为200
+            guard let httpResponse  = response as? HTTPURLResponse,httpResponse.statusCode == 200 else{
+                //todo 对错误进行操作
+                print("22222222")
+                return
+                
+            }
+            //如果没有数据对象
+            guard let data1 = data else{
+                print("no data")
+                print("3333333333")
+                return
+            }
+            
+            print("Now we get data \(data)")
+            
+            str = String(data:data1, encoding: String.Encoding.utf8) ?? "1111"
+        }
+}
+
+//对于网络访问的数据操作
+func operateData(){
+   
+  表示异步，放入主线程操作，避免在访问网路数据子线程中操作同一个主线程对象，造成未可知错误
+  DispatchQueue.main.async{
+          //例如操作界面view，或者controller里的属性
+
+  }
+
+}
+
+-------------------解析Json数据-----------------------
+class TextClassJson: Codable{
+    let status: Int
+    let text: String
+    let isCheck: Bool?
+     init(status: Int, text:String){
+        self.status = status
+        self.text = text
+     }
+}
+let data = try JSONDecoder().decode(TextClassJson.self, from:jsonData)
+print(data.status, data.text, data.isCheck)
+
+
+-------------------------
+un « segmented controller »
+a modal
