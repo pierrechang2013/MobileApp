@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Exercice09</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Ayaka Miyoshi, actrice de cinéma et de télévision, mannequin, chanteuse, étudiante en première année du groupe de filles Sakura Academy</string>
+
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">List1</string>
+    <string name="menu_gallery">List2</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+
+    <string name="firstName">firstName</string>
+    <string name="lastName">lastName</string>
+    <string name="sssss">sssss</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+
+    <string name="lv">To ListView</string>
+    <string name="rv">To RecycleView</string>
+    <string name="addStudent">Ajout Etudiant</string>
+</resources>

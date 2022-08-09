@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Excercice08</string>
+    <string name="firstName">firstName</string>
+    <string name="lastName">lastName</string>
+    <string name="sssss">sssss</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+
+    <string name="lv">To ListView</string>
+    <string name="rv">To RecycleView</string>
+    <string name="addStudent">Ajout Etudiant</string>
+</resources>

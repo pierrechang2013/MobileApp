@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Exercice10</string>
+    <string name="name">"name"</string>
+    <string name="name2">"name"</string>
+    <string name="ok">"OK"</string>
+    <string name="nom">Nom:</string>
+    <string name="prenom">Prenom:</string>
+    <string name="zone">Zone:</string>
+    <string name="_0">0</string>
+    <string name="ssss">ssss</string>
+    <string name="montant_de_l_amande">Montant de l\'amande</string>
+    <string name="zone_de_travaux_ou_scolaire">Zone de travaux ou scolaire</string>
+    <string name="vitesse">Vitesse:</string>
+    <string name="__0">0$</string>
+    <string name="nom1">Nom</string>
+    <string name="entrez_toutes_les_champs_correctement">Entrez toutes les champs correctement</string>
+    <string name="prenom1">Prenom</string>
+
+    <string-array name="zone">
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+    </string-array>
+</resources>

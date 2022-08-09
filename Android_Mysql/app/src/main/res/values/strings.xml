@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Android2_Exam2</string>
+    <string name="exer">Excercise</string>
+    <string name="video">Video</string>
+
+    <string-array name="sexe">
+        <item>F</item>
+        <item>M</item>
+    </string-array>
+
+    <string-array name="sexe1">
+        <item>F</item>
+        <item>M</item>
+    </string-array>
+
+</resources>

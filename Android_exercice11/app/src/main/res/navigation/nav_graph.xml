@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listFragment2">
+
+    <fragment
+        android:id="@+id/listFragment2"
+        android:name="canada.montreal.pierre.android1_excercice11.ListFragment"
+        android:label="Excercice11"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_listFragment2_to_detailFragment2"
+            app:destination="@id/detailFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment2"
+        android:name="canada.montreal.pierre.android1_excercice11.DetailFragment"
+        android:label="Details">
+        <action
+            android:id="@+id/action_detailFragment2_to_listFragment2"
+            app:destination="@id/listFragment2" />
+    </fragment>
+</navigation>

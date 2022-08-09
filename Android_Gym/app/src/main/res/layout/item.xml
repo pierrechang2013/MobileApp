@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--这个是为recycler_view的子项指定的布局-->
+<!--CardView也是一个FrameLayout，只是额外提供了圆角和阴影的效果。这里使用CardView来作为子项的最外层布局，从而使得RecyclerView中的每个元素都是在卡片当中的。-->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="4dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/gymImg"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
+        <!--        下面这条被注释的的代码会让图片保持原有比例填满ImageView,超出的部分将被裁切掉-->
+        <!--            android:scaleType="centerCrop" -->
+        <TextView
+            android:id="@+id/gymTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:textSize="16sp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
