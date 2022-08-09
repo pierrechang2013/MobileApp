@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab_navigation"
+    app:startDestination="@id/tab_login">
+
+    <fragment
+        android:id="@+id/tab_login"
+        android:name="canada.montreal.pierre.judocanada.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/tab_news"
+        android:name="canada.montreal.pierre.judocanada.NewsFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/tab_video"
+        android:name="canada.montreal.pierre.judocanada.VideoFragment"
+        android:label="Video"
+        tools:layout="@layout/fragment_video" />
+</navigation>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item-->
+<!--        android:id="@+id/action_refresh"-->
+<!--        app:showAsAction="always"-->
+<!--        android:icon="@drawable/ic_launcher_background"-->
+<!--        android:title="Refresh" />-->
+<!--    <item-->
+<!--        android:id="@+id/action_add"-->
+<!--        app:showAsAction="ifRoom"-->
+<!--        android:icon="@android:drawable/btn_star_big_on"-->
+<!--        android:title="Add" />-->
+    <item
+        android:id="@+id/action_settings"
+        app:showAsAction="never"
+        android:icon="@android:drawable/checkbox_on_background"
+        android:title="Settings"></item>
+</menu>
