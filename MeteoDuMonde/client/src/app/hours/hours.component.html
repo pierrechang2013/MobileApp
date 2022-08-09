@@ -1,0 +1,72 @@
+
+
+<div class="ui list" *ngFor="let wo1 of wo">
+
+  <div class="ui list" *ngFor="let wna of wo1.nearest_area">
+
+    <p class='tabletitle'><strong>{{wna.areaName[0].value}},{{wna.country[0].value}},{{wna.region[0].value}}</strong>
+    </p>
+
+  </div>
+
+  <div class="title2" *ngFor="let ww of wo1.weather">
+
+
+      <table border="4"  *ngFor="let wwh of ww.hourly">
+
+        <tr>
+
+          <td>
+            <P>Temperature</P>
+          </td>
+          <td>{{wwh.DewPointC}}℃</td>
+        </tr>
+
+        <tr>
+
+          <td>Conditions</td>
+          <td>{{wwh.cloudcover}}</td>
+
+        </tr>
+
+        <tr>
+
+          <td>Humidity</td>
+          <td>{{wwh.humidity}}Km/h WNW</td>
+
+        </tr>
+
+
+        <tr>
+
+          <td>Précipitation</td>
+          <td>{{wwh.precipMM}}</td>
+
+        </tr>
+
+
+
+
+        <tr>
+
+          <td>Visibilité</td>
+          <td>{{wwh.visibility}} Km</td>
+
+        </tr>
+
+        <tr>
+
+          <td>Humidité</td>
+          <td>{{wwh.uvIndex}}%</td>
+
+        </tr>
+
+
+
+
+      </table>
+
+
+
+
+</div>

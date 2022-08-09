@@ -1,0 +1,81 @@
+
+<div class="ui list" *ngFor="let wo1 of wo">
+
+  <div class="ui list" *ngFor="let wna of wo1.nearest_area">
+    <p class='tabletitle'><strong>{{wna.areaName[0].value}},{{wna.country[0].value}},{{wna.region[0].value}}</strong></p>
+  </div>
+
+  <div class="ui list" *ngFor="let wcc of wo1.current_condition">
+
+    <div class='table1'>
+
+      <table border="4">
+
+        <tr>
+
+          <td>
+            <P>Temperature</P>
+          </td>
+          <td>{{wcc.FeelsLikeC}}℃</td>
+        </tr>
+
+        <tr>
+
+          <td>Conditions</td>
+          <td>{{wcc.weatherDesc[0].value}}</td>
+
+        </tr>
+
+        <tr>
+
+          <td>Vents</td>
+          <td>{{wcc.windspeedMiles}}Km/h WNW</td>
+
+        </tr>
+
+
+        <tr>
+
+          <td>UV</td>
+          <td>{{wcc.uvIndex}}</td>
+
+        </tr>
+
+
+
+
+        <tr>
+
+          <td>Visibilité</td>
+          <td>{{wcc.visibility}} Km</td>
+
+        </tr>
+
+        <tr>
+
+          <td>Humidité</td>
+          <td>{{wcc.humidity}}%</td>
+
+        </tr>
+
+        <tr>
+
+          <td>Précipitation</td>
+          <td>{{wcc.precipMM}} mm</td>
+
+        </tr>
+
+        <tr>
+
+          <td>Dernière obersavition</td>
+          <td>{{wcc.localObsDateTime}}</td>
+
+
+        </tr>
+      </table>
+    </div>
+
+
+  </div>
+
+</div>
