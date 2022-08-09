@@ -208,29 +208,21 @@ public class LoginFragment extends Fragment  {
                     @Override
                     public void run() {
 
-                        //String path = "http://49.232.114.172:8080/yunying/qufumanage/getList.json";
-                        //String path = "https://www.omdbapi.com/?i=tt0000100&apikey=e0a35fb0";
-                        //String path = "https://www.trackie.com/api/request/?api=judoCanadaMemberLookup&token=JH&SD^FfF_3THQ<_j},vh#!qD@,&firstName=Tierry&lastName=A .coutu&memberNum =0218414";
-                        //OkHttpClient okHttpClient = getUnsafeOkHttpClient();
+                        
                         OkHttpClient okHttpClient = new OkHttpClient();
                         String url = "https://www.trackie.com/api/request/";//
 
 
                         RequestBody body = new FormBody.Builder()
-                                .add(" api","judoCanadaMemberLookup")
-                                .add("token","JH&SD^FfF_3THQ<_j},vh#!qD@,")
+                                .add(" api","")
+                                .add("token","")
                                 .add("firstName", firstName)
                                 .add("lastName", lastName)
                                 .add("birthDate", dateStr)
                                 .add("memberNum", membership)
                                 .build();
 
-                        Request request = new okhttp3.Request.Builder()
-                                .url(url)
-                                .addHeader("token",   "JH&SD^FfF_3THQ<_j},vh#!qD@,")
-                                //.addHeader("token","JH&SD^FfF_3THQ<_j},vh#!qD@,")
-                                .post(body)
-                                .build();
+                       
 
 
                         Call call = okHttpClient.newCall(request);
@@ -238,8 +230,8 @@ public class LoginFragment extends Fragment  {
                         try {
                             Response response = call.execute();
                             String data = response.body().string();
-                            Log.d(TAG,"******************************************");
-                            Log.d(TAG,data);
+                            //Log.d(TAG,"******************************************");
+                            //Log.d(TAG,data);
 
                             Functions fun = new Functions();
                             //film = fun.getFilmObject(data);
