@@ -30,34 +30,35 @@ public class CalcFragment extends Fragment {
     private final double tps = 0.05;
     private final double tvq = 0.0975;
 
-    private final double totalTaxPercent = 1+tps+tvq;
+    private final double totalTaxPercent = 1 + tps + tvq;
 
 
     private TextView priceTV;
     private TextView titleTV;
     private EditText priceET;
-   private TextView discountTV;
-   private EditText discountET;
-   private TextView disResTV;
-   private TextView tpsTV;
-   private TextView tpsResTV;
+    private TextView discountTV;
+    private EditText discountET;
+    private TextView disResTV;
+    private TextView tpsTV;
+    private TextView tpsResTV;
 
-   private TextView tvqTV;
-   private TextView tvqResTV;
-   private TextView totalTaxTV;
-   private TextView totalTaxResTV;
-   private TextView tipsTV;
-   private EditText tipsET;
-   private TextView tipsResTV;
-   private TextView totalTV;
-   private TextView totalResTV;
-   private Button wipeBtn;
-   private Button saveBtn;
+    private TextView tvqTV;
+    private TextView tvqResTV;
+    private TextView totalTaxTV;
+    private TextView totalTaxResTV;
+    private TextView tipsTV;
+    private EditText tipsET;
+    private TextView tipsResTV;
+    private TextView totalTV;
+    private TextView totalResTV;
+    private Button wipeBtn;
+    private Button saveBtn;
 
     ViewMode vm;
 
     TaxCalcDataBase tdb;
     ProjectDAO pd;
+
     public CalcFragment() {
 
     }
@@ -81,7 +82,7 @@ public class CalcFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calc,null);
+        View view = inflater.inflate(R.layout.fragment_calc, null);
         vm = new ViewMode();
         tdb = TaxCalcDataBase.getInstance(getActivity());
         pd = tdb.getProductDao();
@@ -183,9 +184,35 @@ public class CalcFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                String str = editable.toString();
 
-                vm.changePriceStr(editable.toString());
 
+
+                if (str.indexOf(",") > -1) {
+                    str = str.replaceAll(",", ".");
+                    //Log.d(TAG,"**"+str);
+                    priceET.setText(str);
+                    priceET.setSelection(str.length());
+                } else if (str.startsWith(".")) {
+                    str = "0.";
+                    //Log.d(TAG,"**"+str);
+                    priceET.setText(str);
+                    priceET.setSelection(str.length());//设置光标位置在最后，默认是在最前面
+                }
+//                else if (str.contains(".") && str.endsWith(".")) {//已经有小数点，但是又写小数点
+//
+//                    String[] strs = str.split(".");
+//                    //str.e
+//                    int length = str.length();
+//                    str = str.substring(0, length - 1);//去掉这个小数点
+//                    priceET.setText(str);
+//                    priceET.setSelection(str.length());
+//                    //Log.d(TAG,"zheli,"+str);
+//
+//                }
+
+
+                vm.changePriceStr(str);
 
 
             }
@@ -196,16 +223,20 @@ public class CalcFragment extends Fragment {
             @Override
             public void onChanged(String s) {
 
-                double price = s.length()>0?Double.parseDouble(s):0;
-                //Log.d(TAG,"###s.length()"+String.valueOf(s.length()));
-                //Log.d(TAG,"###price"+String.valueOf(price));
-                double discount = discountET.getText()!=null&&discountET.getText().toString().length()>0?Double.parseDouble(discountET.getText().toString()):0;
-                double tips = tipsET.getText().toString().length()>0?Double.parseDouble(tipsET.getText().toString()):0;
+                try {
 
-                calculate(price,discount,tips);
+                    double price = s.length() > 0 ? Double.parseDouble(s) : 0;
+
+                    double discount = discountET.getText() != null && discountET.getText().toString().length() > 0 ? Double.parseDouble(discountET.getText().toString()) : 0;
+                    double tips = tipsET.getText().toString().length() > 0 ? Double.parseDouble(tipsET.getText().toString()) : 0;
+
+                    calculate(price, discount, tips);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
-
 
 
         discountET.addTextChangedListener(new TextWatcher() {
@@ -222,11 +253,19 @@ public class CalcFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-
-
-                    vm.changediscountStr(editable.toString());
-
+                String str = editable.toString();
+                if (str.indexOf(",") > -1) {
+                    str = str.replaceAll(",", ".");
+                    //Log.d(TAG,"**"+str);
+                    discountET.setText(str);
+                    discountET.setSelection(str.length());
+                } else if (str.startsWith(".")) {
+                    str = "0.";
+                    //Log.d(TAG,"**"+str);
+                    discountET.setText(str);
+                    discountET.setSelection(str.length());//设置光标位置在最后，默认是在最前面
+                }
+                vm.changediscountStr(str);
 
 
             }
@@ -236,16 +275,19 @@ public class CalcFragment extends Fragment {
         vm.getDiscountStr().observe(getActivity(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
+                try {
 
-                double price = priceET.getText().toString().length()>0?Double.parseDouble(priceET.getText().toString()):0;
+                    double price = priceET.getText().toString().length() > 0 ? Double.parseDouble(priceET.getText().toString()) : 0;
 
-                double discount = s.length()>0?Double.parseDouble(s):0;
-                double tips = tipsET.getText().toString().length()>0?Double.parseDouble(tipsET.getText().toString()):0;
+                    double discount = s.length() > 0 ? Double.parseDouble(s) : 0;
+                    double tips = tipsET.getText().toString().length() > 0 ? Double.parseDouble(tipsET.getText().toString()) : 0;
 
-                calculate(price,discount,tips);
+                    calculate(price, discount, tips);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
-
 
 
         tipsET.addTextChangedListener(new TextWatcher() {
@@ -262,8 +304,19 @@ public class CalcFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-                   vm.changeTipsStr(editable.toString());
+                String str = editable.toString();
+                if (str.indexOf(",") > -1) {
+                    str = str.replaceAll(",", ".");
+                    //Log.d(TAG,"**"+str);
+                    tipsET.setText(str);
+                    tipsET.setSelection(str.length());
+                } else if (str.startsWith(".")) {
+                    str = "0.";
+                    //Log.d(TAG,"**"+str);
+                    tipsET.setText(str);
+                    tipsET.setSelection(str.length());//设置光标位置在最后，默认是在最前面
+                }
+                vm.changeTipsStr(str);
 
             }
 
@@ -272,15 +325,17 @@ public class CalcFragment extends Fragment {
         vm.getTipsStr().observe(getActivity(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
+                try {
+                    double tips = s.length() > 0 ? Double.parseDouble(s) : 0;
 
-                double tips = s.length()>0?Double.parseDouble(s):0;
-
-                double price = priceET.getText().toString().length()>0?Double.parseDouble(priceET.getText().toString()):0;
-                double discount = discountET.getText().toString().length()>0?Double.parseDouble(discountET.getText().toString()):0;
-                calculate(price,discount,tips);
+                    double price = priceET.getText().toString().length() > 0 ? Double.parseDouble(priceET.getText().toString()) : 0;
+                    double discount = discountET.getText().toString().length() > 0 ? Double.parseDouble(discountET.getText().toString()) : 0;
+                    calculate(price, discount, tips);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
-
 
 
         wipeBtn.setOnClickListener(new View.OnClickListener() {
@@ -295,12 +350,12 @@ public class CalcFragment extends Fragment {
             public void onClick(View v) {
                 Bill bill = new Bill();
 
-                bill.setPrice( priceET.getText().toString().isEmpty()?bill.getPrice():priceET.getText().toString());
-                bill.setDiscount(discountET.getText().toString().isEmpty()?bill.getDiscount():discountET.getText().toString());
+                bill.setPrice(priceET.getText().toString().isEmpty() ? bill.getPrice() : priceET.getText().toString());
+                bill.setDiscount(discountET.getText().toString().isEmpty() ? bill.getDiscount() : discountET.getText().toString());
                 bill.setDiscountRes(disResTV.getText().toString());
                 bill.setTpsRes(tpsResTV.getText().toString());
                 bill.setTvqRes(tvqResTV.getText().toString());
-                bill.setTips(tipsET.getText().toString().isEmpty()?bill.getTips():tipsET.getText().toString());
+                bill.setTips(tipsET.getText().toString().isEmpty() ? bill.getTips() : tipsET.getText().toString());
                 bill.setTipsRes(tipsResTV.getText().toString());
                 bill.setTotalTaxRes(totalTaxResTV.getText().toString());
                 bill.setTotal(totalResTV.getText().toString());
@@ -311,41 +366,40 @@ public class CalcFragment extends Fragment {
         return view;
     }
 
-    private void calculate(double price,double discount,double tips){
+    private void calculate(double price, double discount, double tips) {
 
-        Log.d(TAG,"****price"+String.valueOf(price));
+        Log.d(TAG, "****price" + String.valueOf(price));
 
-        double discountRes = price*(discount/100);
-        if(discountRes==0){
-            this.disResTV.setText(String.format("%.2f",discountRes));
-        }else{
-            this.disResTV.setText("-"+String.format("%.2f",discountRes));
+        double discountRes = price * (discount / 100);
+        if (discountRes == 0) {
+            this.disResTV.setText(String.format("%.2f", discountRes));
+        } else {
+            this.disResTV.setText("-" + String.format("%.2f", discountRes));
         }
 
 
-        double tpsRes = (price-discountRes)*this.tps;
-        this.tpsResTV.setText(String.format("%.2f",tpsRes));
+        double tpsRes = (price - discountRes) * this.tps;
+        this.tpsResTV.setText(String.format("%.2f", tpsRes));
 
-        double tvqRes = (price-discountRes)*this.tvq;
-        this.tvqResTV.setText(String.format("%.2f",tvqRes));
+        double tvqRes = (price - discountRes) * this.tvq;
+        this.tvqResTV.setText(String.format("%.2f", tvqRes));
 
-        double totalTaxRes = tpsRes+tvqRes;
-        this.totalTaxResTV.setText(String.format("%.2f",totalTaxRes));
+        double totalTaxRes = tpsRes + tvqRes;
+        this.totalTaxResTV.setText(String.format("%.2f", totalTaxRes));
 
-        double tipsRes = (price-discountRes)*(tips/100);
-        this.tipsResTV.setText(String.format("%.2f",tipsRes));
+        double tipsRes = (price - discountRes) * (tips / 100);
+        this.tipsResTV.setText(String.format("%.2f", tipsRes));
 
-        double total = price*(1-discount/100)*(this.totalTaxPercent)+tipsRes;
-        this.totalResTV.setText(String.format("%.2f",total));
-
+        double total = price * (1 - discount / 100) * (this.totalTaxPercent) + tipsRes;
+        this.totalResTV.setText(String.format("%.2f", total));
 
 
     }
 
 
-    private void efface(){
-         this.priceET.setText("");
-         this.priceET.setHint("0.00");
+    private void efface() {
+        this.priceET.setText("");
+        this.priceET.setHint("0.00");
 
         this.discountET.setText("");
         this.discountET.setHint("0");
@@ -363,60 +417,59 @@ public class CalcFragment extends Fragment {
         dialog.setContentView(R.layout.fragment_dialog);
 
 
-        final EditText articleNameET =  dialog.findViewById(R.id.editTextArticleName);
-        final EditText magasinET =  dialog.findViewById(R.id.editTextMagasin);
+        final EditText articleNameET = dialog.findViewById(R.id.editTextArticleName);
+        final EditText magasinET = dialog.findViewById(R.id.editTextMagasin);
         articleNameET.setTypeface(tf);
         magasinET.setTypeface(tf);
 
-        final TextView priceTV =  dialog.findViewById(R.id.textView6);
-        final TextView priceResTV =  dialog.findViewById(R.id.textView7);
+        final TextView priceTV = dialog.findViewById(R.id.textView6);
+        final TextView priceResTV = dialog.findViewById(R.id.textView7);
         priceTV.setTypeface(tf);
         priceResTV.setTypeface(tf);
         priceResTV.setText(bill.getPrice());
 
-        final TextView discountTV =  dialog.findViewById(R.id.textView8);
-        final TextView discountResTV =  dialog.findViewById(R.id.textView22);
+        final TextView discountTV = dialog.findViewById(R.id.textView8);
+        final TextView discountResTV = dialog.findViewById(R.id.textView22);
         discountTV.setTypeface(tf);
         discountResTV.setTypeface(tf);
-        discountTV.setText(discountTV.getText().toString()+" "+bill.getDiscount()+"%");
+        discountTV.setText(discountTV.getText().toString() + " " + bill.getDiscount() + "%");
         discountResTV.setText(bill.getDiscountRes());
 
-        final TextView tpsTV =  dialog.findViewById(R.id.textView25);
-        final TextView tpsResTV =  dialog.findViewById(R.id.textView29);
+        final TextView tpsTV = dialog.findViewById(R.id.textView25);
+        final TextView tpsResTV = dialog.findViewById(R.id.textView29);
         tpsTV.setTypeface(tf);
         tpsResTV.setTypeface(tf);
         tpsResTV.setText(bill.getTpsRes());
 
-        final TextView tvqTV =  dialog.findViewById(R.id.textView26);
-        final TextView tvqResTV =  dialog.findViewById(R.id.textView30);
+        final TextView tvqTV = dialog.findViewById(R.id.textView26);
+        final TextView tvqResTV = dialog.findViewById(R.id.textView30);
         tvqTV.setTypeface(tf);
         tvqResTV.setTypeface(tf);
         tvqResTV.setText(bill.getTvqRes());
 
-        final TextView totalTaxTV =  dialog.findViewById(R.id.textView27);
-        final TextView totalTaxResTV =  dialog.findViewById(R.id.textView31);
+        final TextView totalTaxTV = dialog.findViewById(R.id.textView27);
+        final TextView totalTaxResTV = dialog.findViewById(R.id.textView31);
         totalTaxTV.setTypeface(tf);
         totalTaxResTV.setTypeface(tf);
         totalTaxResTV.setText(bill.getTotalTaxRes());
 
-        final TextView tipsTV =  dialog.findViewById(R.id.textView28);
-        final TextView tipsResTV =  dialog.findViewById(R.id.textView32);
+        final TextView tipsTV = dialog.findViewById(R.id.textView28);
+        final TextView tipsResTV = dialog.findViewById(R.id.textView32);
         tipsTV.setTypeface(tf);
         tipsResTV.setTypeface(tf);
-        tipsTV.setText(tipsTV.getText().toString()+" "+bill.getTips()+"%");
+        tipsTV.setText(tipsTV.getText().toString() + " " + bill.getTips() + "%");
         tipsResTV.setText(bill.getTipsRes());
 
 
         //detailTV.setText(bill.getDetails());
-        final TextView totalTv =  dialog.findViewById(R.id.textView21);
+        final TextView totalTv = dialog.findViewById(R.id.textView21);
         totalTv.setTypeface(tf);
-        totalTv.setText("Total            "+String.valueOf(bill.getTotal()));
-
+        totalTv.setText("Total            " + String.valueOf(bill.getTotal()));
 
 
         Button save = dialog.findViewById(R.id.button);
         save.setTypeface(tf);
-        Button  cancel= dialog.findViewById(R.id.button2);
+        Button cancel = dialog.findViewById(R.id.button2);
         cancel.setTypeface(tf);
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -428,11 +481,11 @@ public class CalcFragment extends Fragment {
                 String magasin = magasinET.getText().toString();
 
 
-                if(articleName.length()<=0){
+                if (articleName.length() <= 0) {
                     articleNameET.setHint("Entrez le nom de article svp");
                     return;
                 }
-                if(magasin.length()<=0){
+                if (magasin.length() <= 0) {
                     magasinET.setHint("Entrez le nom de magasin svp");
                     return;
                 }
@@ -462,8 +515,8 @@ public class CalcFragment extends Fragment {
         dialog.show();
     }
 
-    class  SaveAsyncTask extends AsyncTask< Bill,Void,Void > {
-        private  ProjectDAO pd;
+    class SaveAsyncTask extends AsyncTask<Bill, Void, Void> {
+        private ProjectDAO pd;
 
         public SaveAsyncTask(ProjectDAO pd) {
 
@@ -471,7 +524,7 @@ public class CalcFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Bill...bills){
+        protected Void doInBackground(Bill... bills) {
             Bill bill = bills[0];
             //long id = pd.insertGymExcercice(gymExercice);//存入数据，得到数据库里的唯一
             //gymExercice.setId(id);//给了id值
@@ -489,9 +542,7 @@ public class CalcFragment extends Fragment {
             super.onPostExecute(aVoid);
 
 
-
             List<Bill> geList = new ArrayList<Bill>();
-
 
 
 //            //把取得的ge列表赋给全局变量，因为不能用this，所以取一个全局的名字方便赋值
@@ -500,7 +551,6 @@ public class CalcFragment extends Fragment {
 //            rv.setItemAnimator(new DefaultItemAnimator());
 //            rva = new ListAdapter2(geList,pd);
 //            rv.setAdapter(rva);
-
 
 
 //            ItemTouchHelper ith = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.START|ItemTouchHelper.END) {
@@ -524,13 +574,9 @@ public class CalcFragment extends Fragment {
 //            ith.attachToRecyclerView(rv);
 
 
-
-
-
         }
 
     }
-
 
 
 }
