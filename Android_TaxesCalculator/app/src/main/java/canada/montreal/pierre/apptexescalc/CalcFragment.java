@@ -29,6 +29,8 @@ public class CalcFragment extends Fragment {
 
     private final double tps = 0.05;
     private final double tvq = 0.0975;
+    private final double discountLimit=99;
+    private final double tipsLimit=300;
 
     private final double totalTaxPercent = 1 + tps + tvq;
 
@@ -64,14 +66,6 @@ public class CalcFragment extends Fragment {
     }
 
 
-//    public static CalcFragment newInstance(String param1, String param2) {
-//        CalcFragment fragment = new CalcFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -134,41 +128,7 @@ public class CalcFragment extends Fragment {
         wipeBtn.setTypeface(tf);
         saveBtn.setTypeface(tf);
 
-        //监听键盘对删除键的行为，因为总会自动保留第一个数字，是我自己的bug，已经解决了，这个对键盘的监听留下来，以后备用
-//        priceET.setOnKeyListener(new View.OnKeyListener(){
-//            @Override
-//
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if (keyCode == KeyEvent.KEYCODE_DEL) {
-//                    String content = priceET.getText().toString();
-//
-//                    //Log.d("***priceETcontent**",content);
-//                    try{//删除完毕
-//                        //虽然这时候长度为空，其实还是能取到输入的第一个数字，所以不能知道删除完毕了没，所以就要再看，如果转换失败了
-//                        //就捕捉异常，重新置零
-//                        if(content.isEmpty()) {
-//                            Integer.parseInt(content);
-//                        }
-//
-////                        if(content==null) {
-////                            Integer.parseInt(content);
-////                        }
-//                        //Log.d("***转换成功了**", content);
-//                    }catch (Exception e){
-//                        //Log.d("laizhelilllll",content);
-//                        calculate(0,0,0);
-//                    }
-////                    if(content.equals(":")){
-////                        Log.d("laizhelilllll",content);
-////                        priceET.setText("0");
-////                    }
-//                }
-//
-//                return false;
-//
-//            }
-//
-//        });
+        
 
         priceET.addTextChangedListener(new TextWatcher() {
             @Override
@@ -199,17 +159,7 @@ public class CalcFragment extends Fragment {
                     priceET.setText(str);
                     priceET.setSelection(str.length());//设置光标位置在最后，默认是在最前面
                 }
-//                else if (str.contains(".") && str.endsWith(".")) {//已经有小数点，但是又写小数点
-//
-//                    String[] strs = str.split(".");
-//                    //str.e
-//                    int length = str.length();
-//                    str = str.substring(0, length - 1);//去掉这个小数点
-//                    priceET.setText(str);
-//                    priceET.setSelection(str.length());
-//                    //Log.d(TAG,"zheli,"+str);
-//
-//                }
+//               
 
 
                 vm.changePriceStr(str);
@@ -228,6 +178,7 @@ public class CalcFragment extends Fragment {
                     double price = s.length() > 0 ? Double.parseDouble(s) : 0;
 
                     double discount = discountET.getText() != null && discountET.getText().toString().length() > 0 ? Double.parseDouble(discountET.getText().toString()) : 0;
+
                     double tips = tipsET.getText().toString().length() > 0 ? Double.parseDouble(tipsET.getText().toString()) : 0;
 
                     calculate(price, discount, tips);
@@ -280,6 +231,10 @@ public class CalcFragment extends Fragment {
                     double price = priceET.getText().toString().length() > 0 ? Double.parseDouble(priceET.getText().toString()) : 0;
 
                     double discount = s.length() > 0 ? Double.parseDouble(s) : 0;
+                    if(discount>discountLimit){
+                        discount = discountLimit;
+                        discountET.setText(String.valueOf(discount));
+                    }
                     double tips = tipsET.getText().toString().length() > 0 ? Double.parseDouble(tipsET.getText().toString()) : 0;
 
                     calculate(price, discount, tips);
@@ -327,9 +282,13 @@ public class CalcFragment extends Fragment {
             public void onChanged(String s) {
                 try {
                     double tips = s.length() > 0 ? Double.parseDouble(s) : 0;
-
+                    if(tips>tipsLimit){
+                        tips = tipsLimit;
+                        tipsET.setText(String.valueOf(tips));
+                    }
                     double price = priceET.getText().toString().length() > 0 ? Double.parseDouble(priceET.getText().toString()) : 0;
                     double discount = discountET.getText().toString().length() > 0 ? Double.parseDouble(discountET.getText().toString()) : 0;
+
                     calculate(price, discount, tips);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -544,34 +503,6 @@ public class CalcFragment extends Fragment {
 
             List<Bill> geList = new ArrayList<Bill>();
 
-
-//            //把取得的ge列表赋给全局变量，因为不能用this，所以取一个全局的名字方便赋值
-//            globalGeList = geList;
-//
-//            rv.setItemAnimator(new DefaultItemAnimator());
-//            rva = new ListAdapter2(geList,pd);
-//            rv.setAdapter(rva);
-
-
-//            ItemTouchHelper ith = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.START|ItemTouchHelper.END) {
-//                @Override
-//                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                    return false;
-//                }
-//
-//                @Override
-//                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//
-//                    //geList.remove(viewHolder.getAdapterPosition());
-//                    //geList.notifyItemRemoved(viewHolder.getAdapterPosition());
-//                    GymExercice ge = globalGeList.get(viewHolder.getAdapterPosition());
-//                    //删除
-//                    new ListActivity.DeleteAsyncTask(pd).execute(ge);
-//
-//                }
-//            });
-//
-//            ith.attachToRecyclerView(rv);
 
 
         }
