@@ -31,7 +31,7 @@ public class TaxCalcDbTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("canada.montreal.pierre.android2_labo2", appContext.getPackageName());
+        assertEquals("canada.montreal.pierre.apptexescalc", appContext.getPackageName());
     }
 
     @Before
