@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color8"
         android:clickable="true">
 
         <androidx.constraintlayout.widget.Guideline
@@ -108,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:clickable="true"
-            android:text="info@taxecalc.com"
+            android:text="info@taxecalc.ca"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline22"
@@ -121,8 +122,9 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contactez-nous"
-            android:textSize="40sp"
+            android:text="CONTACTEZ-NOUS!"
+            android:textColor="@color/color4"
+            android:textSize="32sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -175,13 +177,14 @@
 
         <TextView
             android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="331dp"
+            android:layout_height="83dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:inputType="textMultiLine"
-            android:text="SUGGETIONS OU BUG TROUÉ"
+            android:text="SUGGESTION OU BUG TROUVÉ?"
             android:textAlignment="center"
+            android:textColor="@color/color4"
             android:textSize="34sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +206,7 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tech@taxecalc.com"
+            android:text="tech@taxecalc.ca"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline26"

@@ -2,7 +2,6 @@ package canada.montreal.pierre.apptexescalc;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -254,11 +253,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 
                 if(articleName.length()<=0){
-                    articleNameET.setHint("Entrez le nom de article svp");
+                    articleNameET.setHint("Entrez le nom de l'article SVP");
                     return;
                 }
                 if(magasin.length()<=0){
-                    magasinET.setHint("Entrez le nom de magasin svp");
+                    magasinET.setHint("Entrez le nom du magasin SVP");
                     return;
                 }
 
@@ -291,6 +290,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 //刷新删除后每个item的position
                 notifyItemRangeChanged(bill.getPosition(), list.size() - bill.getPosition(), "removeItem");
                 notifyDataSetChanged();
+                Toast.makeText(context,"Vous avez supprimé l'article: "+bill.getArticleName(),Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         });
@@ -322,9 +322,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
             //rva.notifyDataSetChanged();
             Log.i(TAG, "delete finished");
-            //Toast.makeText(ListActivity.this,"GymExercice "+gymExercices.get(0).getId()+" est supprimee",Toast.LENGTH_LONG).show();
-
-
 
         }
 

@@ -553,7 +553,7 @@ public class CalcFragment extends Fragment {
         protected void onPostExecute(Bill bill) {
             super.onPostExecute(bill);
 
-            Toast.makeText(getActivity(), "Vous avez saugardé l'article:"+bill.getArticleName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Vous avez sauvegardé l'article: "+bill.getArticleName(), Toast.LENGTH_SHORT).show();
             //List<Bill> geList = new ArrayList<Bill>();
 
 

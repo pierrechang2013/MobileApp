@@ -42,25 +42,25 @@ public class Bill {
     private String discount = "0";
 
     @ColumnInfo(name = "discountRes",typeAffinity = ColumnInfo.TEXT)
-    private String discountRes;
+    private String discountRes = "0.00";
 
     @ColumnInfo(name = "tpsRes",typeAffinity = ColumnInfo.TEXT)
-    private String tpsRes;
+    private String tpsRes = "0.00";
 
     @ColumnInfo(name = "tvqRes",typeAffinity = ColumnInfo.TEXT)
-    private String tvqRes;
+    private String tvqRes = "0.00";
 
     @ColumnInfo(name = "totalTaxRes",typeAffinity = ColumnInfo.TEXT)
-    private String totalTaxRes;
+    private String totalTaxRes = "0.00";
 
     @ColumnInfo(name = "tips",typeAffinity = ColumnInfo.TEXT)
     private String tips = "0";
 
     @ColumnInfo(name = "tipsRes",typeAffinity = ColumnInfo.TEXT)
-    private String tipsRes;
+    private String tipsRes = "0.00";
 
     @ColumnInfo(name = "total",typeAffinity = ColumnInfo.TEXT)
-    private String total;
+    private String total = "0.00";
 
 //    private String espaces = "          ";
 //    private String espaces2 = "      ";

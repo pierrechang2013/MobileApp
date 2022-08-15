@@ -240,11 +240,11 @@ public class ListFragment extends Fragment {
 
 
                 if(articleName.length()<=0){
-                    articleNameET.setHint("Entrez le nom de article svp");
+                    articleNameET.setHint("Entrez le nom de l'article SVP");
                     return;
                 }
                 if(magasin.length()<=0){
-                    magasinET.setHint("Entrez le nom de magasin svp");
+                    magasinET.setHint("Entrez le nom du magasin SVP");
                     return;
                 }
 

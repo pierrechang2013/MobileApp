@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="LISTE DES ARTICLES SAUVEGARDÉS"
             android:textAlignment="center"
+            android:textColor="@color/color4"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline27"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +53,7 @@
                 android:layout_weight="1"
                 android:text="Article"
                 android:textAlignment="center"
+                android:textColor="@color/color2"
                 android:textSize="20sp" />
 
             <TextView
@@ -61,6 +63,7 @@
                 android:layout_weight="1"
                 android:text="Magasin"
                 android:textAlignment="center"
+                android:textColor="@color/color2"
                 android:textSize="20sp" />
 
             <TextView
@@ -70,6 +73,7 @@
                 android:layout_weight="1"
                 android:text="Prix"
                 android:textAlignment="center"
+                android:textColor="@color/color2"
                 android:textSize="20sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -108,12 +108,12 @@ public class ContactFragment extends Fragment {
 
 
         try {
-            startActivity(Intent.createChooser(intent, "Choissez quel email appli"));
+            startActivity(Intent.createChooser(intent, "Choisissez une application de courriel"));
             //startActivity(Intent.createChooser(intent, "Send mail..."));
             //getActivity().finish();//加了这个就结束应用了，要小心使用
             Log.d(TAG, "Envoyez un email.....");
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(getContext(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Aucune application de courriel installée", Toast.LENGTH_SHORT).show();
         }
     }
 }
