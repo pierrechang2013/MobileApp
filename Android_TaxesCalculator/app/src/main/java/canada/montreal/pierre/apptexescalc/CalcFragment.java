@@ -542,7 +542,10 @@ public class CalcFragment extends Fragment {
             //gymExercice.setId(id);//给了id值
             pd.insertBills(bill);//存入数据
             vm.setList(pd.getBills());
-
+            //gymExercice.setId(id);//给了id值
+//            Log.d("$$$$globlelist size",String.valueOf(globalGeList.size()));
+//            List<GymExercice> list = new ArrayList<GymExercice>();
+//            list.add(gymExercice);//返回给onPost方法
             return bill;
         }
 
@@ -550,8 +553,37 @@ public class CalcFragment extends Fragment {
         protected void onPostExecute(Bill bill) {
             super.onPostExecute(bill);
 
-            Toast.makeText(getActivity(), "Vous avez saugardez l'article:"+bill.getArticleName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Vous avez saugardé l'article:"+bill.getArticleName(), Toast.LENGTH_SHORT).show();
+            //List<Bill> geList = new ArrayList<Bill>();
 
+
+//            //把取得的ge列表赋给全局变量，因为不能用this，所以取一个全局的名字方便赋值
+//            globalGeList = geList;
+//
+//            rv.setItemAnimator(new DefaultItemAnimator());
+//            rva = new ListAdapter2(geList,pd);
+//            rv.setAdapter(rva);
+
+
+//            ItemTouchHelper ith = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.START|ItemTouchHelper.END) {
+//                @Override
+//                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                    return false;
+//                }
+//
+//                @Override
+//                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//
+//                    //geList.remove(viewHolder.getAdapterPosition());
+//                    //geList.notifyItemRemoved(viewHolder.getAdapterPosition());
+//                    GymExercice ge = globalGeList.get(viewHolder.getAdapterPosition());
+//                    //删除
+//                    new ListActivity.DeleteAsyncTask(pd).execute(ge);
+//
+//                }
+//            });
+//
+//            ith.attachToRecyclerView(rv);
 
 
         }
