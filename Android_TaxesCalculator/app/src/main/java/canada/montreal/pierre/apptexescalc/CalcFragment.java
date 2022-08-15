@@ -19,6 +19,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,14 @@ public class CalcFragment extends Fragment {
     }
 
 
+//    public static CalcFragment newInstance(String param1, String param2) {
+//        CalcFragment fragment = new CalcFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,7 +137,41 @@ public class CalcFragment extends Fragment {
         wipeBtn.setTypeface(tf);
         saveBtn.setTypeface(tf);
 
-        
+        //监听键盘对删除键的行为，因为总会自动保留第一个数字，是我自己的bug，已经解决了，这个对键盘的监听留下来，以后备用
+//        priceET.setOnKeyListener(new View.OnKeyListener(){
+//            @Override
+//
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_DEL) {
+//                    String content = priceET.getText().toString();
+//
+//                    //Log.d("***priceETcontent**",content);
+//                    try{//删除完毕
+//                        //虽然这时候长度为空，其实还是能取到输入的第一个数字，所以不能知道删除完毕了没，所以就要再看，如果转换失败了
+//                        //就捕捉异常，重新置零
+//                        if(content.isEmpty()) {
+//                            Integer.parseInt(content);
+//                        }
+//
+////                        if(content==null) {
+////                            Integer.parseInt(content);
+////                        }
+//                        //Log.d("***转换成功了**", content);
+//                    }catch (Exception e){
+//                        //Log.d("laizhelilllll",content);
+//                        calculate(0,0,0);
+//                    }
+////                    if(content.equals(":")){
+////                        Log.d("laizhelilllll",content);
+////                        priceET.setText("0");
+////                    }
+//                }
+//
+//                return false;
+//
+//            }
+//
+//        });
 
         priceET.addTextChangedListener(new TextWatcher() {
             @Override
@@ -159,7 +202,17 @@ public class CalcFragment extends Fragment {
                     priceET.setText(str);
                     priceET.setSelection(str.length());//设置光标位置在最后，默认是在最前面
                 }
-//               
+//                else if (str.contains(".") && str.endsWith(".")) {//已经有小数点，但是又写小数点
+//
+//                    String[] strs = str.split(".");
+//                    //str.e
+//                    int length = str.length();
+//                    str = str.substring(0, length - 1);//去掉这个小数点
+//                    priceET.setText(str);
+//                    priceET.setSelection(str.length());
+//                    //Log.d(TAG,"zheli,"+str);
+//
+//                }
 
 
                 vm.changePriceStr(str);
@@ -474,7 +527,7 @@ public class CalcFragment extends Fragment {
         dialog.show();
     }
 
-    class SaveAsyncTask extends AsyncTask<Bill, Void, Void> {
+    class SaveAsyncTask extends AsyncTask<Bill, Void, Bill> {
         private ProjectDAO pd;
 
         public SaveAsyncTask(ProjectDAO pd) {
@@ -483,25 +536,21 @@ public class CalcFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Bill... bills) {
+        protected Bill doInBackground(Bill... bills) {
             Bill bill = bills[0];
             //long id = pd.insertGymExcercice(gymExercice);//存入数据，得到数据库里的唯一
             //gymExercice.setId(id);//给了id值
             pd.insertBills(bill);//存入数据
             vm.setList(pd.getBills());
-            //gymExercice.setId(id);//给了id值
-//            Log.d("$$$$globlelist size",String.valueOf(globalGeList.size()));
-//            List<GymExercice> list = new ArrayList<GymExercice>();
-//            list.add(gymExercice);//返回给onPost方法
-            return null;
+
+            return bill;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(Bill bill) {
+            super.onPostExecute(bill);
 
-
-            List<Bill> geList = new ArrayList<Bill>();
+            Toast.makeText(getActivity(), "Vous avez saugardez l'article:"+bill.getArticleName(), Toast.LENGTH_SHORT).show();
 
 
 
