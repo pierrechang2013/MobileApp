@@ -34,7 +34,7 @@ public interface ProjectDAO {
 
 
 
-    @Query("select * from Bill")
+    @Query("select * from Bill  order by id desc")
     List<Bill> getBills();
 
 

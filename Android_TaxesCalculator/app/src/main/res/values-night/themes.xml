@@ -10,12 +10,12 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
 
-        <item name="windowSplashScreenAnimatedIcon">@drawable/lanchscreen</item>
-        <!-- 展示时常(低版本不生效需要代码设置)-->
-        <item name="windowSplashScreenAnimationDuration">2000</item>
+<!--        <item name="windowSplashScreenAnimatedIcon">@drawable/lanchscreen</item>-->
+<!--        &lt;!&ndash; 展示时常(低版本不生效需要代码设置)&ndash;&gt;-->
+<!--        <item name="windowSplashScreenAnimationDuration">2000</item>-->
 
 
     </style>

@@ -138,7 +138,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.magasin.setText(Functions.getBreafString(bill.getMagasin(),this.lengthLimit));
         holder.magasin.setTypeface(tf);
 
-        holder.price.setText(Functions.getBreafString(bill.getPrice(),this.lengthLimit));
+        holder.price.setText(Functions.getBreafString(bill.getTotal(),this.lengthLimit));
         holder.price.setTypeface(tf);
 
         final int pos = holder.getLayoutPosition();
